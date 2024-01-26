@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 
@@ -30,9 +31,17 @@ func main() {
 	cmd := flag.Arg(0)
 	switch cmd {
 	case pluginName + ":exec":
-		fmt.Printf("exec(): %s", flag.Args())
-	case "exec":
-		fmt.Printf("exec(): %s", flag.Args())
+		args := ""
+		for _, s := range flag.Args() {
+			args += s
+		}
+		fmt.Printf("exec(): %s\n", flag.Args())
+		out, err := exec.Command("bash", "-c", args).Output()
+		if err != nil {
+			fmt.Printf("Error: %s\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("%s\n", out)
 	case pluginName + ":help":
 		usage()
 	case "help":
