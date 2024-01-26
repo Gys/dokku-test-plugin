@@ -40,15 +40,8 @@ func main() {
 		}
 		fmt.Printf("%d updates available\n", n)
 	case pluginName + ":exec":
-		args := ""
-		for i, s := range flag.Args() {
-			if i > 0 {
-				args += s
-			}
-		}
-		fmt.Printf("exec(): %s\n", args)
 		// out, err := exec.Command("bash", "-c", args).Output()
-		out, err := exec.Command(args).Output()
+		out, err := exec.Command(flag.Args()[1], flag.Args()[2:]...).Output()
 		if err != nil {
 			fmt.Printf("Error: %s\n", err)
 			os.Exit(1)
