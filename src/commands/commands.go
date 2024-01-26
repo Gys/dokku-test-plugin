@@ -11,14 +11,15 @@ import (
 )
 
 const (
-	helpHeader = `Usage: dokku repo[:COMMAND]
+	pluginName = "dokku-test-plugin"
+	helpHeader = `Usage: dokku ` + pluginName + `[:COMMAND]
 
 Runs commands that interact with the app's repo
 
 Additional commands:`
 
 	helpContent = `
-    smoke-test-plugin:test, prints test message
+	` + pluginName + `:test, prints test message
 `
 )
 
@@ -28,12 +29,15 @@ func main() {
 
 	cmd := flag.Arg(0)
 	switch cmd {
-	case "smoke-test-plugin:help":
+	case pluginName + ":exec":
+	case "exec":
+		fmt.Printf("exec(): %s", flag.Args())
+	case pluginName + ":help":
 		usage()
 	case "help":
 		fmt.Print(helpContent)
-	case "smoke-test-plugin:test":
-		fmt.Println("triggered smoke-test-plugin from: commands")
+	case pluginName + ":test":
+		fmt.Println("triggered: " + pluginName + " from: commands")
 	default:
 		dokkuNotImplementExitCode, err := strconv.Atoi(os.Getenv("DOKKU_NOT_IMPLEMENTED_EXIT"))
 		if err != nil {
