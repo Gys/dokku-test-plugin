@@ -30,6 +30,7 @@ func main() {
 	cmd := flag.Arg(0)
 	switch cmd {
 	case pluginName + ":exec":
+		fmt.Printf("exec(): %s", flag.Args())
 	case "exec":
 		fmt.Printf("exec(): %s", flag.Args())
 	case pluginName + ":help":
