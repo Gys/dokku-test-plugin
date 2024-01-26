@@ -32,8 +32,10 @@ func main() {
 	switch cmd {
 	case pluginName + ":exec":
 		args := ""
-		for _, s := range flag.Args() {
-			args += s
+		for i, s := range flag.Args() {
+			if i > 0 {
+				args += s
+			}
 		}
 		fmt.Printf("exec(): %s\n", flag.Args())
 		out, err := exec.Command("bash", "-c", args).Output()
