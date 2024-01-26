@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	pluginName = "dokku-test-plugin"
+	pluginName = "test-plugin"
 	helpHeader = `Usage: dokku ` + pluginName + `[:COMMAND]
 
 Runs commands that interact with the app's repo
